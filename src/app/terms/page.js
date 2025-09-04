@@ -10,7 +10,7 @@ export default function TermsPage() {
     <>
       <section className="bg-[url('/intro-bg.png')] bg-cover bg-center bg-no-repeat w-full">
         <Container>
-          <div className="h-[50vh] flex items-end pt-[90px] pb-10">
+          <div className="h-[35vh] md:h-[50vh] flex items-end pt-[90px] pb-10">
             <div>
               <h1 className="text-white text-[40px] md:text-[56px] font-bold leading-tight">
                 Terms of Service

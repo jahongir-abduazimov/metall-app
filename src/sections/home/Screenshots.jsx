@@ -30,7 +30,7 @@ const Screenshots = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="relative aspect-[9/16] mx-auto w-[300px] md:w-[340px] lg:w-[360px] xl:w-[380px] rounded-[2.2rem] border border-slate-200 bg-white/50 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)] ring-1 ring-black/5 overflow-hidden">
+          <div className="relative aspect-[9/16] mx-auto w-[280px] md:w-[340px] lg:w-[360px] xl:w-[380px] rounded-[2.2rem] border border-slate-200 bg-white/50 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)] ring-1 ring-black/5 overflow-hidden">
             {/* Phone bezel */}
             <div className="pointer-events-none absolute inset-0 rounded-[2.2rem] ring-1 ring-black/10"></div>
             {/* Notch */}
