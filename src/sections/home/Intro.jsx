@@ -16,7 +16,7 @@ const Intro = () => {
             <p className="text-white/70 text-base sm:text-lg md:text-xl mt-4 md:mt-6 text-center sm:text-start">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa natus quibusdam dignissimos recusandae porro fugiat alias sint. Tempore eius enim id obcaecati provident ducimus, eum dolor, corporis, debitis nisi architecto.
             </p>
-            <div className="w-[320px] h-[320px] md:w-[400px] md:h-[400px] bg-white/30 text-white rounded-xl backdrop-blur-lg flex items-center justify-center mx-auto mt-10">App screen</div>
+            <div className="w-[320px] h-[320px] md:w-[400px] md:h-[400px] bg-white/30 text-white rounded-xl backdrop-blur-lg md:hidden flex items-center justify-center mx-auto mt-10">App screen</div>
             <div>
               <p className="text-white text-base sm:text-lg mt-8 md:mt-10 mb-3">
                 Download our app today!
@@ -33,7 +33,7 @@ const Intro = () => {
               </div>
             </div>
           </div>
-          <div className="w-[320px] h-[320px] md:w-[400px] md:h-[400px] bg-white/30 text-white rounded-xl backdrop-blur-lg flex items-center justify-center">App screen</div>
+          <div className="w-[320px] h-[320px] md:w-[400px] md:h-[400px] bg-white/30 text-white rounded-xl backdrop-blur-lg hidden md:flex items-center justify-center">App screen</div>
         </div>
       </Container>
     </section>
