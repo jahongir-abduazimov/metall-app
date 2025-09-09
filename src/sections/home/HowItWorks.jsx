@@ -1,8 +1,6 @@
-"use client";
-
 import React from "react";
 import Container from "@/components/Container";
-import { ArrowDown, ArrowRight, ArrowRightIcon } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 
 const steps = [
   {
