@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -9,6 +9,10 @@ const ScreenshotsCarousel = ({ images }) => {
   const next = () => setCurrent((p) => (p + 1) % images.length);
   const prev = () => setCurrent((p) => (p - 1 + images.length) % images.length);
 
+  if (!images || images.length === 0) {
+    return <div className="text-center py-8">No screenshots available.</div>;
+  }
+
   return (
     <>
       <div className="relative aspect-[9/16] mx-auto w-[280px] md:w-[340px] lg:w-[360px] xl:w-[380px] rounded-[2.2rem] border border-slate-200 bg-white/50 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)] ring-1 ring-black/5 overflow-hidden">
@@ -18,8 +22,8 @@ const ScreenshotsCarousel = ({ images }) => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-6 w-36 rounded-b-2xl bg-black/80 z-10"></div>
 
         <Image
-          src={images[current].src}
-          alt={images[current].alt}
+          src={images[current]?.image}
+          alt="app screenshot"
           fill
           className="object-cover"
           priority
@@ -97,7 +101,12 @@ const ScreenshotsCarousel = ({ images }) => {
             }`}
             aria-label={`Open slide ${idx + 1}`}
           >
-            <Image src={img.src} alt={img.alt} fill className="object-cover" />
+            <Image
+              src={img.image}
+              alt="screenshot"
+              fill
+              className="object-cover"
+            />
           </button>
         ))}
       </div>

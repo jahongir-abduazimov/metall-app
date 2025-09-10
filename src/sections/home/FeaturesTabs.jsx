@@ -28,21 +28,21 @@ const FeaturesTabs = ({ tabs }) => {
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            {tabs[activeTab].content.title}
+            {tabs[activeTab]?.contents[0].title}
           </h3>
           <p className="md:text-lg text-gray-600 max-w-3xl mx-auto">
-            {tabs[activeTab].content.description}
+            {tabs[activeTab]?.contents[0].description}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {tabs[activeTab].content.features.map((feature, index) => (
+          {tabs[activeTab]?.contents[0].items.map((feature, index) => (
             <div
               key={index}
               className="flex items-start gap-3 p-3 md:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
             >
               <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
-              <span className="text-gray-700">{feature}</span>
+              <span className="text-gray-700">{feature.text}</span>
             </div>
           ))}
         </div>

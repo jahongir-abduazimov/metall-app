@@ -1,73 +1,100 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Container from "./Container";
+import Logo from "../../public/logo.png";
+import Image from "next/image";
+import { useContactInfo } from "@/hooks/useContactInfo";
 
 const Footer = () => {
+  const { contactData, loading, error } = useContactInfo();
+
   return (
     <footer className="bg-black text-white mt-28">
       <Container>
         <div className="py-16 border-t border-white/20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             <div className="space-y-4">
-              <Link
-                href="/"
-                className="inline-block border border-white text-white rounded-lg px-16 py-4 text-lg"
-              >
-                LOGO
+              <Link href={"/"}>
+                <Image
+                  className="w-[150px] md:w-[200px]"
+                  src={Logo}
+                  alt="logo"
+                />
               </Link>
-              <p className="text-white/70 text-base leading-relaxed max-w-xs">
-                Building great experiences with a focus on simplicity,
-                performance, and trust.
+              <p className="text-white/70 text-base leading-relaxed max-w-xs mt-5">
+                Создаем отличный опыт с акцентом на простоту, производительность
+                и надежность.
               </p>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4">Legal</h3>
+              <h3 className="text-lg font-semibold mb-4">
+                Правовая информация
+              </h3>
               <ul className="space-y-3 text-base">
                 <li>
                   <Link className="hover:underline" href="/privacy-policy">
-                    Privacy Policy
+                    Политика конфиденциальности
                   </Link>
                 </li>
                 <li>
                   <Link className="hover:underline" href="/terms">
-                    Terms of Service
+                    Условия обслуживания
                   </Link>
                 </li>
                 <li>
                   <Link className="hover:underline" href="/contact">
-                    Contact
+                    Контакты
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4">Contact</h3>
-              <ul className="space-y-3 text-base text-white/80">
-                <li>
-                  <a
-                    className="hover:underline"
-                    href="mailto:contact@example.com"
-                  >
-                    contact@example.com
-                  </a>
-                </li>
-                <li>
-                  <a className="hover:underline" href="tel:+1234567890">
-                    +1 (234) 567-890
-                  </a>
-                </li>
-                <li>
-                  <span>123 Main Street</span>
-                  <br />
-                  <span>City, Country</span>
-                </li>
-              </ul>
+              <h3 className="text-lg font-semibold mb-4">Контакты</h3>
+              {loading ? (
+                <div className="space-y-3 text-base text-white/60">
+                  <div className="animate-pulse">Загрузка...</div>
+                </div>
+              ) : contactData ? (
+                <ul className="space-y-3 text-base text-white/80">
+                  {contactData.email && (
+                    <li>
+                      <a
+                        className="hover:underline"
+                        href={contactData.email.href}
+                      >
+                        {contactData.email.value}
+                      </a>
+                    </li>
+                  )}
+                  {contactData.phone && (
+                    <li>
+                      <a
+                        className="hover:underline"
+                        href={contactData.phone.href}
+                      >
+                        {contactData.phone.value}
+                      </a>
+                    </li>
+                  )}
+                  {contactData.address && (
+                    <li>
+                      <span>{contactData.address.value}</span>
+                    </li>
+                  )}
+                </ul>
+              ) : (
+                <div className="space-y-3 text-base text-white/60">
+                  <div>Контактная информация недоступна</div>
+                </div>
+              )}
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4">Follow us</h3>
+              <h3 className="text-lg font-semibold mb-4">Следите за нами</h3>
               <div className="flex items-center gap-6">
                 <a
                   href="https://twitter.com"

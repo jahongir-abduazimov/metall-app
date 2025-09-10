@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useMemo, useState } from "react";
 
 const BranchesInteractive = ({ branches }) => {
   const [selectedBranchId, setSelectedBranchId] = useState(
@@ -12,8 +13,8 @@ const BranchesInteractive = ({ branches }) => {
   );
 
   const src = useMemo(() => {
-    const lat = selectedBranch?.lat;
-    const lng = selectedBranch?.lng;
+    const lat = selectedBranch?.latitude;
+    const lng = selectedBranch?.longitude;
     if (lat == null || lng == null) {
       return `https://www.google.com/maps?q=${encodeURIComponent(
         branches[0]?.address || "City Center"
@@ -57,7 +58,7 @@ const BranchesInteractive = ({ branches }) => {
                 </h4>
                 <p className="text-gray-600">{b.address}</p>
                 <p className="text-gray-500 text-sm mt-1">
-                  {b.lat}, {b.lng}
+                  {b.latitude}, {b.longitude}
                 </p>
               </div>
               {/* <span className="text-sm text-gray-500">{b.distanceKm} km</span> */}

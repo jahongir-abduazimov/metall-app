@@ -1,47 +1,53 @@
-import React from "react";
 import Container from "@/components/Container";
 import FAQItem from "./FAQItem";
 
-const faqs = [
-  {
-    question: "What metals do you accept?",
-    answer:
-      "We accept a wide range of metals including copper, aluminum, brass, steel, and more.",
-  },
-  {
-    question: "How do you determine pricing?",
-    answer:
-      "Prices are updated daily based on market rates. You can view transparent pricing in the app.",
-  },
-  {
-    question: "How do pickups work?",
-    answer:
-      "Schedule a pickup in the app or drop off at the nearest branch. You'll receive status updates in real time.",
-  },
-  {
-    question: "When will I get paid?",
-    answer:
-      "Payments are processed immediately after verification. Choose from multiple secure payment options.",
-  },
-];
+async function getFaqs() {
+  try {
+    const res = await fetch("http://192.168.0.105:8001/api/faq/items", {
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error("Failed to fetch FAQs");
+    return await res.json();
+  } catch (err) {
+    return { error: err.message };
+  }
+}
 
-const FAQ = () => {
+const FAQ = async () => {
+  const data = await getFaqs();
+  const faqs = Array.isArray(data) ? data : [];
+  const error = data && data.error ? data.error : null;
+
   return (
     <section className="py-14 md:py-20 bg-white">
       <Container>
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
-            FAQ
+            Часто задаваемые вопросы о поставке, продаже и покупке металлов
           </h2>
           <p className="md:text-lg text-gray-600 max-w-2xl mx-auto">
-            Answers to the most common questions. Can’t find what you’re looking
-            for? Contact support in the app.
+            Ответы на популярные вопросы о поставке, продаже и покупке металлов
+            и сплавов, ценах и условиях работы. Не нашли нужную информацию?
+            Свяжитесь с нашими экспертами.
           </p>
         </div>
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm p-4 sm:p-6">
-          {faqs.map((item, index) => (
-            <FAQItem key={item.question} item={item} index={index} />
-          ))}
+          {error && (
+            <div className="text-center py-6 text-red-500">
+              Ошибка загрузки вопросов: {error}
+            </div>
+          )}
+          {!error && faqs.length === 0 && (
+            <div className="text-center py-6">Вопросы не найдены.</div>
+          )}
+          {!error &&
+            faqs.map((item, index) => (
+              <FAQItem
+                key={item.id || item.question}
+                item={item}
+                index={index}
+              />
+            ))}
         </div>
       </Container>
     </section>
