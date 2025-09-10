@@ -17,9 +17,9 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
-  experimental: {
-    optimizeCss: true,
-  },
+  // experimental: {
+  //   optimizeCss: true, // Disabled due to critters dependency issues in deployment
+  // },
   async headers() {
     return [
       {

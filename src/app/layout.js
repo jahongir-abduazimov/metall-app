@@ -29,7 +29,7 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://metalls.example.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://metalls.example.com'),
   alternates: {
     canonical: '/',
     languages: {
@@ -40,7 +40,7 @@ export const metadata = {
   openGraph: {
     title: "Поставка, продажа и покупка металлов и сплавов - Профессиональные услуги",
     description: "Поставка, продажа и покупка металлов и сплавов. Профессиональные услуги по закупке и реализации металлопроката. Выгодные цены, быстрая обработка заявок.",
-    url: 'https://metalls.example.com',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://metalls.example.com',
     siteName: 'Металлы и Сплавы',
     images: [
       {

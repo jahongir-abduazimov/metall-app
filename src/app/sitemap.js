@@ -1,5 +1,5 @@
 export default async function sitemap() {
-    const baseUrl = 'https://metalls.example.com';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://metalls.example.com';
 
     // Static pages
     const staticPages = [
@@ -32,27 +32,30 @@ export default async function sitemap() {
     // Dynamic pages - metals
     let dynamicPages = [];
 
-    try {
-        const metallTypesRes = await fetch(
-            "http://192.168.0.105:8001/api/metals/types/",
-            {
+    // Only fetch dynamic data if we're not in build time or if API is available
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://192.168.0.105:8001/api/metals/types/";
+
+    // Skip dynamic fetching during build if it's a local development URL
+    if (!apiUrl.includes('192.168.0.105') || process.env.NODE_ENV === 'development') {
+        try {
+            const metallTypesRes = await fetch(apiUrl, {
                 cache: "no-store",
                 next: { revalidate: 3600 } // Revalidate every hour
+            });
+
+            if (metallTypesRes.ok) {
+                const metallTypes = await metallTypesRes.json();
+
+                dynamicPages = metallTypes.map((type) => ({
+                    url: `${baseUrl}/metalls/${type.id}`,
+                    lastModified: new Date(),
+                    changeFrequency: 'weekly',
+                    priority: 0.7,
+                }));
             }
-        );
-
-        if (metallTypesRes.ok) {
-            const metallTypes = await metallTypesRes.json();
-
-            dynamicPages = metallTypes.map((type) => ({
-                url: `${baseUrl}/metalls/${type.id}`,
-                lastModified: new Date(),
-                changeFrequency: 'weekly',
-                priority: 0.7,
-            }));
+        } catch (error) {
+            console.error('Error fetching metals for sitemap:', error);
         }
-    } catch (error) {
-        console.error('Error fetching metals for sitemap:', error);
     }
 
     return [...staticPages, ...dynamicPages];
